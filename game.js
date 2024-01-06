@@ -66,7 +66,8 @@ export default class Game {
 
         this.activeBlockTypeId = this.randomiseBlock();
         this.heldBlockTypeId = this.activeBlockTypeId;
-        this.activeBlock = this.generateNewBlock(this.grid, this.activeBlockTypeId, 4, -1)
+        this.activeBlock = this.generateNewBlock(this.grid, this.activeBlockTypeId, 4, -1);
+        this.holdCtx.clearRect(0, 0, holdCanvas.width, holdCanvas.height);
         this.heldBlock = "none";
         this.heldToggled = false;
 
@@ -143,6 +144,7 @@ export default class Game {
 
     updateHeld() {
         if (this.heldBlock === "none") {
+            this.heldBlockTypeId = this.activeBlockTypeId;
             this.heldBlock = this.generateNewBlock(this.holdGrid, this.heldBlockTypeId, 2, 2);
             this.updateNext();
         } else {
@@ -222,25 +224,25 @@ export default class Game {
         switch (index) {
             case 0:
                 return new tetris.Smashboy(grid, i, j, SMASHBOY_COLOR);
-                break;
+                
             case 1:
                 return new tetris.Teewee(grid, i, j, TEEWEE_COLOR);
-                break;
+                
             case 2:
                 return new tetris.Rhode(grid, i, j, RHODE_COLOR);
-                break;
+                
             case 3:
                 return new tetris.Cleveland(grid, i, j, CLEVELAND_COLOR);
-                break;
+                
             case 4:
                 return new tetris.ORicky(grid, i, j, ORICKY_COLOR);
-                break;
+                
             case 5:
                 return new tetris.BRicky(grid, i, j, BRICKY_COLOR);
-                break;
+                
             case 6:
                 return new tetris.Hero(grid, i, j, HERO_COLOR);
-                break;
+                
         }
     }
 
