@@ -70,6 +70,7 @@ export default class Game {
         this.holdCtx.clearRect(0, 0, holdCanvas.width, holdCanvas.height);
         this.heldBlock = "none";
         this.heldToggled = false;
+        this.dropDownDisabled = false;
 
         this.clearSound = scoreSFX;
 
@@ -108,7 +109,8 @@ export default class Game {
                 this.moveTimer += deltaTime
             }
             
-            if (this.input.keysPressed.has("s")) this.drop();
+            if (this.input.keysPressed.has("s") && !this.dropDownDisabled) this.drop();
+            else if (this.dropDownDisabled && !this.input.keysPressed.has('s')) this.dropDownDisabled = false;
            
             if (this.dropTimer >= this.dropInterval){
                 this.drop();
@@ -127,6 +129,7 @@ export default class Game {
             if (this.activeBlock.frozen) {
                 this.activeBlock.blocks.forEach((block) =>
                 this.inactiveBlocks.push(block));
+                this.dropDownDisabled = true;
                 this.clearLines();
                 this.updateNext();
                 this.checkGameOver();
